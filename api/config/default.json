@@ -1,0 +1,11 @@
+{
+    "mysql":{
+        "banco-de-dados": "gestaofinanceira",
+        "usuario": "root",
+        "senha": "admin",
+        "host": "127.0.0.1"
+    },
+    "api":{
+        "porta": 3000
+    }
+}
