@@ -18,11 +18,10 @@ const colunas = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      
-    dataDeNascimento: {
-        type: Sequelize.DATEONLY,
-        allowNull: false,
-      },
+    senha:{
+      type: Sequelize.STRING,
+      allowNull: false,
+    }
   };
   const opcoes = {
       freezeTableName: true,

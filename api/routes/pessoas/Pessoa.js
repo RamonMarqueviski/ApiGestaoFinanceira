@@ -1,4 +1,3 @@
-
 const TabelaPessoa = require("./TabelaPessoa");
 
 class Pessoa {
@@ -9,10 +8,10 @@ class Pessoa {
     sexo,
     email,
     telefone,
-    dataDeNascimento,
     dataCriacao,
     dataAtualizacao,
     versao,
+    senha,
   }) {
     this.id = id;
     this.primeiroNome = primeiroNome;
@@ -20,7 +19,7 @@ class Pessoa {
     this.sexo = sexo;
     this.email = email;
     this.telefone = telefone;
-    this.dataDeNascimento = dataDeNascimento;
+    this.senha = senha;
     this.dataAtualizacao = dataAtualizacao;
     this.dataCriacao = dataCriacao;
     this.versao = versao;
@@ -33,7 +32,7 @@ class Pessoa {
       sexo: this.sexo,
       email: this.email,
       telefone: this.telefone,
-      dataDeNascimento: this.dataDeNascimento,
+      senha: this.senha,
     });
     this.id = resultado.id;
     this.dataCriacao = resultado.dataCriacao;
@@ -41,32 +40,45 @@ class Pessoa {
     this.versao = resultado.versao;
   }
   async carregar() {
-    const PessoaEncontrado = await TabelaPessoa.pegarPorId(this.id);
-    this.primeiroNome = PessoaEncontrado.primeiroNome;
-    this.sobrenome = PessoaEncontrado.sobrenome;
-    this.sexo = PessoaEncontrado.sexo;
-    this.email = PessoaEncontrado.email;
-    this.telefone = PessoaEncontrado.telefone;
-    this.dataDeNascimento = PessoaEncontrado.dataDeNascimento;
-    this.dataAtualizacao = PessoaEncontrado.dataAtualizacao;
-    this.dataCriacao = PessoaEncontrado.dataCriacao;
-    this.versao = PessoaEncontrado.versao;
+    if (this.id == null) {
+      const PessoaEncontrado = await TabelaPessoa.pegarPorEmail(this.email);
+      this.primeiroNome = PessoaEncontrado.primeiroNome;
+      this.sobrenome = PessoaEncontrado.sobrenome;
+      this.sexo = PessoaEncontrado.sexo;
+      this.id = PessoaEncontrado.id;
+      this.telefone = PessoaEncontrado.telefone;
+      this.senha = PessoaEncontrado.senha;
+      this.dataAtualizacao = PessoaEncontrado.dataAtualizacao;
+      this.dataCriacao = PessoaEncontrado.dataCriacao;
+      this.versao = PessoaEncontrado.versao;
+    } else {
+      const PessoaEncontrado = await TabelaPessoa.pegarPorId(this.id);
+      this.primeiroNome = PessoaEncontrado.primeiroNome;
+      this.sobrenome = PessoaEncontrado.sobrenome;
+      this.sexo = PessoaEncontrado.sexo;
+      this.email = PessoaEncontrado.email;
+      this.telefone = PessoaEncontrado.telefone;
+      this.senha = PessoaEncontrado.senha;
+      this.dataAtualizacao = PessoaEncontrado.dataAtualizacao;
+      this.dataCriacao = PessoaEncontrado.dataCriacao;
+      this.versao = PessoaEncontrado.versao;
+    }
   }
   async atualizar() {
     await TabelaPessoa.pegarPorId(this.id);
     const campos = [
-      'primeiroNome',
-      'sobrenome',
-      'sexo',
-      'email',
-      'telefone',
-      'dataDeNascimento'
+      "primeiroNome",
+      "sobrenome",
+      "sexo",
+      "email",
+      "telefone",
+      "senha",
     ];
-    const dadosParaAtualizar = {}
+    const dadosParaAtualizar = {};
 
     campos.forEach((campo) => {
       const valor = this[campo];
-      if (typeof valor === 'string' && valor.length > 0) {
+      if (typeof valor === "string" && valor.length > 0) {
         dadosParaAtualizar[campo] = valor;
       }
     });
@@ -76,23 +88,16 @@ class Pessoa {
     await TabelaPessoa.atualizar(this.id, dadosParaAtualizar);
   }
 
-  async remover(){
+  async remover() {
     await TabelaPessoa.pegarPorId(this.id);
     return TabelaPessoa.remover(this.id);
   }
-  validar(){
-    const campos = [
-      'primeiroNome',
-      'sobrenome',
-      'sexo',
-      'email',
-      'telefone',
-      'dataDeNascimento'
-    ];
+  validar() {
+    const campos = ["primeiroNome", "sobrenome", "sexo", "email", "telefone"];
     campos.forEach((campo) => {
       const valor = this[campo];
-      if (typeof valor != 'string' || valor.length == 0) {
-       throw new Error(`O campo ${campo} está inválido` )
+      if (typeof valor != "string" || valor.length == 0) {
+        throw new Error(`O campo ${campo} está inválido`);
       }
     });
   }

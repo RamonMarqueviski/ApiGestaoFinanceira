@@ -12,8 +12,18 @@ module.exports = {
       where: {
         id: id,
       },
-    });
-
+    })
+    if (!encontrado) {
+      throw new Error("Pessoa não encontrada");
+    }
+    return encontrado;
+  },
+  async pegarPorEmail(email) {
+    const encontrado = await Modelo.findOne({
+      where: {
+        email: email,
+      },
+    })
     if (!encontrado) {
       throw new Error("Pessoa não encontrada");
     }

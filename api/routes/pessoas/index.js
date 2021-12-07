@@ -33,6 +33,17 @@ roteador.get("/:idPessoa", async (req, res) => {
   }
 });
 
+roteador.get("/login/:email", async (req, res) => {
+  try {
+    const email = req.params.email;
+    const pessoa = new Pessoa({ email: email });
+    await pessoa.carregar();
+    res.send(JSON.stringify(pessoa));
+  } catch (erro) {
+    res.send(JSON.stringify({ mensagem: erro.message }));
+  }
+});
+
 roteador.put("/:idPessoa", async (req, res) => {
   try {
     const id = req.params.idPessoa;
