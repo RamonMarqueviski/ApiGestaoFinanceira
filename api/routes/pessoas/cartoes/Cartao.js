@@ -3,28 +3,21 @@ const TabelaCartao = require("./TabelaCartao");
 class Cartao {
   constructor({
     id,
-    limite,
-    bandeira,
+    nomeTitular,
     banco,
     numero,
-    dataVencimento,
-    agencia,
-    conta,
-    vencimentoFatura,
+    vencimento,
+    cvv,
     dataCriacao,
     dataAtualizacao,
     versao,
     pessoa,
   }) {
     this.id = id;
-    this.limite = limite;
-    this.bandeira = bandeira;
-    this.banco = banco;
+    this.nomeTitular = nomeTitular;
     this.numero = numero;
-    this.dataVencimento = dataVencimento;
-    this.agencia = agencia;
-    this.conta = conta;
-    this.vencimentoFatura = vencimentoFatura;
+    this.vencimento = vencimento;
+    this.cvv = cvv;
     this.pessoa = pessoa;
     this.dataCriacao = dataCriacao;
     this.dataAtualizacao = dataAtualizacao;
@@ -32,14 +25,10 @@ class Cartao {
   }
   validar() {
     const campos = [
-      "limite",
-      "bandeira",
-      "banco",
+      "nomeTitular",
       "numero",
-      "dataVencimento",
-      "agencia",
-      "conta",
-      "vencimentoFatura",
+      "vencimento",
+      "cvv"
     ];
     campos.forEach((campo) => {
       const valor = this[campo];
@@ -67,26 +56,17 @@ class Cartao {
       this.id,
       this.pessoa
     );
-    this.limite = cartaoEncontrado.limite;
-    this.bandeira = cartaoEncontrado.bandeira;
-    this.banco = cartaoEncontrado.banco;
     this.numero = cartaoEncontrado.numero;
-    this.dataVencimento = cartaoEncontrado.dataVencimento;
-    this.agencia = cartaoEncontrado.agencia;
-    this.conta = cartaoEncontrado.conta;
-    this.vencimentoFatura = cartaoEncontrado.vencimentoFatura;
+    this.vencimento = cartaoEncontrado.vencimento;
+    this.cvv = cartaoEncontrado.cvv;
   }
   async criar() {
     this.validar();
     const resultado = await TabelaCartao.inserir({
-      limite: this.limite,
-      bandeira: this.bandeira,
-      banco: this.banco,
-      numero: this.banco,
-      dataVencimento: this.dataVencimento,
-      agencia: this.agencia,
-      conta: this.conta,
-      vencimentoFatura: this.vencimentoFatura,
+      nomeTitular : this.nomeTitular,
+      numero: this.numero,
+      vencimento: this.vencimento,
+      cvv: this.cvv,
       pessoa: this.pessoa,
     });
     this.id = resultado.id;
@@ -97,25 +77,19 @@ class Cartao {
   async atualizar() {
     await TabelaCartao.pegarPorId(this.id, this.pessoa);
     const campos = [
-      "limite",
-      "bandeira",
-      "banco",
+      "nomeTitular",
       "numero",
-      "dataVencimento",
-      "agencia",
-      "conta",
-      "vencimentoFatura",
+      "vencimento",
+      "cvv"
     ];
     const dadosParaAtualizar = {};
     campos.forEach((campo) => {
       const valor = this[campo];
       if (
-        campo != "limite" ||
+        campo != "nomeTitular" ||
         campo != "numero" ||
-        campo != "agencia" ||
-        campo != "conta" ||
-        campo != "dataVencimento" ||
-        campo != "vencimentoFatura"
+        campo != "vencimento" ||
+        campo != "cvv"
       ) {
         if (typeof valor === "string" && valor.length > 0) {
           dadosParaAtualizar[campo] = valor;

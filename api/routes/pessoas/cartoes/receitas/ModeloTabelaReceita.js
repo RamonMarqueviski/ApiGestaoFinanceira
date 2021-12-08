@@ -6,12 +6,8 @@ const colunas = {
     type: Sequelize.FLOAT,
     allowNull: false,
   },
-  descricao: {
+  tipoReceita:{
     type: Sequelize.STRING,
-    allowNull: false,
-  },
-  dataTransacao: {
-    type: Sequelize.DATEONLY,
     allowNull: false,
   },
   cartao: {
@@ -19,14 +15,6 @@ const colunas = {
     allowNull: false,
     references: {
       model: require("../ModeloTabelaCartao"),
-      key: "id",
-    },
-  },
-  tipoReceita: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: require("../../tipoReceitas/ModeloTabelaTipoReceita"),
       key: "id",
     },
   },

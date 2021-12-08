@@ -14,6 +14,10 @@ const colunas = {
       type: Sequelize.ENUM('M','F'),
       allowNull: false,
     },
+    telefone:{
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     email: {
         type: Sequelize.STRING,
         allowNull: false,

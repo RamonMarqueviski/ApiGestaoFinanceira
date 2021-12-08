@@ -4,8 +4,6 @@ class Receita {
   constructor({
     id,
     valor,
-    descricao,
-    dataTransacao,
     tipoReceita,
     cartao,
     dataCriacao,
@@ -15,8 +13,6 @@ class Receita {
   }) {
     this.id = id;
     this.valor = valor;
-    this.descricao = descricao;
-    this.dataTransacao = dataTransacao;
     this.tipoReceita = tipoReceita;
     this.cartao = cartao;
     this.dataCriacao = dataCriacao;
@@ -25,7 +21,7 @@ class Receita {
     this.pessoa = pessoa;
   }
   validar() {
-    const campos = ["valor", "descricao", "dataTransacao"];
+    const campos = ["valor", "tipoReceita"];
     campos.forEach((campo) => {
       const valor = this[campo];
       if (campo != "valor") {
@@ -44,8 +40,6 @@ class Receita {
       this.cartao,
     );
     this.valor = ReceitaEncontrada.valor;
-    this.descricao = ReceitaEncontrada.descricao;
-    this.dataTransacao = ReceitaEncontrada.dataTransacao;
     this.tipoReceita = ReceitaEncontrada.tipoReceita;
     this.dataCriacao = ReceitaEncontrada.dataCriacao;
     this.dataAtualizacao = ReceitaEncontrada.dataAtualizacao;
@@ -55,8 +49,6 @@ class Receita {
     this.validar();
     const resultado = await TabelaReceita.inserir({
       valor: this.valor,
-      descricao: this.descricao,
-      dataTransacao: this.dataTransacao,
       tipoReceita: this.tipoReceita,
       pessoa: this.pessoa,
       cartao: this.cartao,
@@ -68,7 +60,7 @@ class Receita {
   }
   async atualizar() {
     await TabelaReceita.pegarPorId(this.id, this.pessoa, this.cartao);
-    const campos = ["valor", "descricao", "dataTransacao","tipoReceita"];
+    const campos = ["valor","tipoReceita"];
     const dadosParaAtualizar = {};
     campos.forEach((campo) => {
       const valor = this[campo];
