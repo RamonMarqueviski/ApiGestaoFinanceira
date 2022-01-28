@@ -64,6 +64,7 @@ class Pessoa {
       this.versao = PessoaEncontrado.versao;
     }
   }
+
   async atualizar() {
     await TabelaPessoa.pegarPorId(this.id);
     const campos = [

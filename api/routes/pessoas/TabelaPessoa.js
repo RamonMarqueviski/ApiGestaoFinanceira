@@ -1,5 +1,6 @@
 const Modelo = require("./ModeloTabelaPessoa");
 
+
 module.exports = {
   listar() {
     return Modelo.findAll();

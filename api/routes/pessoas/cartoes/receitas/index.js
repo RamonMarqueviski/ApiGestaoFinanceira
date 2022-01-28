@@ -2,6 +2,15 @@ const roteador = require("express").Router({ mergeParams: true });
 const Tabela = require("./TabelaReceita");
 const Receita = require("../receitas/Receita");
 
+
+
+roteador.get("/todas", async (req, res) => {
+  const receitas = await Tabela.listarTudo(
+    req.params.idPessoa
+  );
+  res.send(JSON.stringify(receitas));
+});
+
 roteador.get("/:idReceita", async (req, res) => {
   try {
     const idReceita = req.params.idReceita;

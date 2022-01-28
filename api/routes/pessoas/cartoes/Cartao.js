@@ -4,7 +4,7 @@ class Cartao {
   constructor({
     id,
     nomeTitular,
-    banco,
+   
     numero,
     vencimento,
     cvv,

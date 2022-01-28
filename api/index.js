@@ -8,6 +8,11 @@ app.use(bodyParser.json());
 const roteador = require('./routes/pessoas')
 app.use('/api/pessoas',roteador)
 
-app.listen(config.get('api.porta'), ()=>{
-    console.log('A API ESTÁ FUNCIONANDO NA PORTA: ' + config.get('api.porta'));
+app.get('/',(req,res)=>{
+    res.send({message: "Hello World!"});
+});
+app.listen(3000, ()=>{
+    console.log('A API ESTÁ FUNCIONANDO NA PORTA: ' + 3000);
 })
+
+module.exports = app;

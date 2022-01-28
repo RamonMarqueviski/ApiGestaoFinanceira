@@ -1,4 +1,6 @@
 const Modelo = require("./ModeloTabelaReceita");
+const Pessoa = require("../../Pessoa");
+const Cartao = require("../Cartao")
 
 module.exports = {
   async pegarPorId(idReceita, idPessoa, idCartao) {
@@ -13,6 +15,13 @@ module.exports = {
       throw new Error("Receita não encontrada");
     }
     return encontrado;
+  },
+  listarTudo( idPessoa){
+    return Modelo.findAll({
+      where: {
+        pessoa: idPessoa,
+      },
+    });
   },
   listar(idPessoa, idCartao) {
     return Modelo.findAll({
