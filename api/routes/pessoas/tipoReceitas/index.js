@@ -6,6 +6,7 @@ roteador.get("/", async (req, res) => {
   const tipoReceitas = await Tabela.listar(req.params.idPessoa);
   res.send(JSON.stringify(tipoReceitas));
 });
+
 roteador.get("/:idTipoReceita", async (req, res) => {
   try {
     const idTipoReceita = req.params.idTipoReceita;

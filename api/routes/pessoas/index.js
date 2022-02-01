@@ -4,8 +4,8 @@ const Pessoa = require("./Pessoa");
  
 
 roteador.get("/", async (req, res) => {
- // const resultados = await TabelaPessoa.listar();
-  //res.send(JSON.stringify(resultados));
+  const resultados = await TabelaPessoa.listar();
+  res.send(JSON.stringify(resultados));
   res.send({message: "Hello World!"});
 });
 
